@@ -87,3 +87,11 @@ output "ecr_repositories" {
     for key, repository in aws_ecr_repository.microservices : key => repository.repository_url
   }
 }
+
+output "rds_username" {
+  value = nonsensitive(aws_db_instance.rds-instance.username)
+}
+
+output "rds_password" {
+  value = nonsensitive(aws_db_instance.rds-instance.password)
+}

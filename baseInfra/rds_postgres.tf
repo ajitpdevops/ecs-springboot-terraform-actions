@@ -28,7 +28,7 @@ resource "aws_db_parameter_group" "db-parameter-group" {
   tags = {
     Name = "${var.environment}-db-parameter-group"
   }
-  
+
 }
 
 
@@ -43,8 +43,6 @@ resource "aws_db_instance" "rds-instance" {
   engine_version              = var.rds_engine_version
   instance_class              = var.rds_instance_class
   db_name                     = var.rds_database_name
-  # username                    = jsondecode(data.aws_secretsmanager_secret_version.creds.secret_string)["username"]
-  # password                    = jsondecode(data.aws_secretsmanager_secret_version.creds.secret_string)["password"]
   username                    = local.db_creds["username"]
   password                    = local.db_creds["password"]
   port                        = var.rds_port
@@ -56,12 +54,12 @@ resource "aws_db_instance" "rds-instance" {
   skip_final_snapshot         = true
   final_snapshot_identifier   = var.final_snapshot_identifier
   vpc_security_group_ids      = [aws_security_group.rds-sg.id, aws_security_group.ecs-sg.id]
-  db_subnet_group_name        = "${aws_db_subnet_group.db_subnet_group.name}"
+  db_subnet_group_name        = aws_db_subnet_group.db_subnet_group.name
 
   tags = {
     Name = "${var.rds_identifier}-db-instance"
   }
 
-  depends_on = [ aws_secretsmanager_secret_version.sversion ]
+  depends_on = [aws_secretsmanager_secret_version.sversion]
 
 }

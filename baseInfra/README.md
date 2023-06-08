@@ -2,7 +2,7 @@
 
 1. Set up the provider 
 2. Setting up Networking components 
-    - Setup VPC 
+    - Setup VPC S
     - Setup Internet Gateway - IGW & Route table association
     - Public Subnet - 2, Route Table, Route table association 
     - Private Subnets - 2, Route Table, Route table association 
@@ -26,4 +26,4 @@
 1. terraform init -backend-config="./env/baseinfra-prod.config"
 2. terraform plan -var-file="./env/production.tfvars" -out="production.tfplan"
 3. terraform apply -var-file="./env/production.tfvars"
-4. terraform destroy -var-file="./env/production.tfvars"
+4. terraform destroy -var-file="./env/production.tfvars"W
