@@ -7,7 +7,7 @@ on:
       - created
 
 env:
-  AWS_REGION: us-east-1                  # set this to your preferred AWS region, e.g. us-west-1
+  AWS_REGION: us-east-1              # set this to your preferred AWS region, e.g. us-west-1
   ECR_REPOSITORY: 243302161856.dkr.ecr.us-east-1.amazonaws.com/coupon          # set this to your Amazon ECR repository name
   SERVICE_NAME: service-name           # set this to the name of the container in the
 
@@ -21,13 +21,15 @@ jobs:
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_REGION: ${{ env.AWS_REGION }}
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
 
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
+      with:
+        registry: ${{ env.ECR_REPOSITORY }}
 
     - name: Build, tag, and push image to Amazon ECR
       working-directory: ./src
