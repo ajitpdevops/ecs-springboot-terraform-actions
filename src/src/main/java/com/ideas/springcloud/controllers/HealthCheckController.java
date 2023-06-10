@@ -8,7 +8,7 @@ public class HealthCheckController {
 
     @GetMapping("/health")
     public String healthCheck() {
-        return "Coupon Application is running, Health Check OK.";
+        return "Coupon Application is running, Health Check status is OK!.";
     }
     
 }
