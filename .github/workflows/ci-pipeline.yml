@@ -8,7 +8,7 @@ on:
 
 env:
   AWS_REGION: us-east-1              # set this to your preferred AWS region, e.g. us-west-1
-  ECR_REPOSITORY: 243302161856.dkr.ecr.us-east-1.amazonaws.com/coupon          # set this to your Amazon ECR repository name
+  ECR_REPOSITORY: coupon          # set this to your Amazon ECR repository name
   SERVICE_NAME: coupon          # set this to the name of the container in the
 
 jobs:
@@ -28,8 +28,7 @@ jobs:
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
-      with:
-        registries: ${{ env.ECR_REPOSITORY }}
+      
 
     - name: Build, tag, and push image to Amazon ECR
       working-directory: ./src
