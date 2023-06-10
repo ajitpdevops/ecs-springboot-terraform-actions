@@ -83,7 +83,4 @@ jobs:
         working-directory: ./platformInfra
         run: terraform apply -auto-approve -var 'microservices={"${{ env.SERVICE_NAME }}"={ "image_tag"="${{ env.IMAGE_TAG }}" }}' -var-file="./env/stage.tfvars"
 
-      - name: Terraform Destroy
-        working-directory: ./platformInfra
-        run: terraform destroy -auto-approve -var-file="./env/stage.tfvars"
         
