@@ -11,7 +11,7 @@ resource "aws_ecs_task_definition" "microservices" {
   container_definitions = jsonencode([
     {
       "name" : "${each.key}",
-      "image" : format("%s:%s", data.terraform_remote_state.baseinfra.outputs.ecr_repositories[each.key], each.value.image_tag),
+      "image" : format("%s:%s", data.aws_ecr_repository.existing_repositories[each.key].repository_url, each.value.image_tag),
       "essential" : true,
       "environment" : [
         {

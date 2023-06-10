@@ -20,15 +20,3 @@ microservices = {
     desired_task_count    = 2
   }
 }
-
-
-#   product = {
-#     image_tag             = "latest"
-#     container_port        = 8081
-#     spring_profiles       = "test"
-#     per_container_cpu     = 1024
-#     per_container_memory  = 2048
-#     health_check_path     = "/health"
-#     database_name         = "postgres"
-#     desired_task_count    = 2
-#   }

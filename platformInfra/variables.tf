@@ -20,10 +20,10 @@ variable "launch_type" {
     default = "FARGATE"
 }
 
-
 # This map must be defined in the respective environment's tfvar file
 variable "microservices" {
-  type = map(object({
+  description = "Configuration for microservices"
+  type        = map(object({
     image_tag             = string
     container_port        = number
     spring_profiles       = string
@@ -33,5 +33,4 @@ variable "microservices" {
     database_name         = string
     desired_task_count    = number
   }))
-  description = "A map of microservices to be deployed"
 }
