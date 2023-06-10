@@ -9,6 +9,9 @@ public_subnet_1a_cidr_block     = "10.0.1.0/24"
 public_subnet_1b_cidr_block     = "10.0.2.0/24"
 private_subnet_1a_cidr_block    = "10.0.11.0/24"
 private_subnet_1b_cidr_block    = "10.0.12.0/24"
+rds_public_access = true
+rds_identifier = "mysql"
+rds_port = 3306
 
 microservices = {
   coupon = {

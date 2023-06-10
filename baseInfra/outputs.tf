@@ -35,6 +35,10 @@ output "rds_endpoint" {
   value = aws_db_instance.rds-instance.endpoint
 }
 
+output "jdbc_endpoint" {
+  value = "jdbc:postgres://${aws_db_instance.rds-instance.endpoint}/${var.rds_database_name}"
+}
+
 output "ecs_alb_listener_arn" {
   value = aws_lb_listener.ecs-alb-https-listener.arn
 }

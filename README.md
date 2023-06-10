@@ -48,7 +48,7 @@
 - Gitlab CI/CD Pipeline for each microservice
 - Saperate pipeline file for stage and prod environment
     - staging-pipeline.yml
-    - production-pipeline.yml
+    - production-pipeline.yml KqxQ$Zd9vKfh60bC
 
 # How to use 
 1. Create a new github repository for baseinfra

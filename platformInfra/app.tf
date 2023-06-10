@@ -15,16 +15,16 @@ resource "aws_ecs_task_definition" "microservices" {
       "essential" : true,
       "environment" : [
         {
-          "name" : "SPRING_PROFILES_ACTIVE",
-          "value" : "${each.value.spring_profiles}"
-        },
-        {
           "name" : "SPRING_DATASOURCE_URL",
           "value" : "jdbc:postgres://${data.terraform_remote_state.baseinfra.outputs.rds_endpoint}/${each.value.database_name}"
         },
         {
           "name" : "SPRING_DATASOURCE_USERNAME",
           "value" : local.db_creds["username"]
+        },
+        {
+          "name" : "SPRING_DATASOURCE_PASSWORD",
+          "value" : local.db_creds["password"]
         },
         {
           "name" : "SPRING_PORT",

@@ -1,3 +1,6 @@
+# ---------------------------------------------------------------------------------------------------------------------
+# ECS TASK ROLE
+# ---------------------------------------------------------------------------------------------------------------------
 resource "aws_iam_role" "ecs-cluster-role" {
   name = "ecs-IAM-role"
   assume_role_policy = jsonencode({
@@ -8,7 +11,7 @@ resource "aws_iam_role" "ecs-cluster-role" {
         Effect = "Allow"
         Sid    = ""
         Principal = {
-          Service = ["ecs.amazonaws.com", "ec2.amazonaws.com", "application-autoscaling.amazonaws.com", "ecs-tasks.amazonaws.com"]
+          Service = ["ecs.amazonaws.com", "application-autoscaling.amazonaws.com", "ecs-tasks.amazonaws.com"]
         }
       },
     ]
@@ -61,6 +64,9 @@ resource "aws_iam_role_policy_attachment" "ecs-cluster-policy-attachment" {
   policy_arn = aws_iam_policy.ecs-cluster-policy.arn
 }
 
+# ---------------------------------------------------------------------------------------------------------------------
+# ECS TASK EXECUTION ROLE
+# ---------------------------------------------------------------------------------------------------------------------
 resource "aws_iam_role" "ecs_task_execution_role" {
   name = "ecs-TaskExecutionRole"
   assume_role_policy = <<EOF

@@ -117,3 +117,12 @@ variable "container_insights" {
   description = "value of the container insights"
   default     = true
 }
+
+variable "rds_username" {
+  description = "rds username"
+
+}
+
+variable "rds_password" {
+  description = "rds password"
+}
