@@ -8,7 +8,7 @@ resource "random_password" "password" {
 # Creating a AWS secret for database master account (Masteraccoundb)
  
 resource "aws_secretsmanager_secret" "secretmasterDB" {
-   name = "psqladminprod"
+   name = "psqladminstg"
 }
  
 # Creating a AWS secret versions for database master account (Masteraccoundb)
