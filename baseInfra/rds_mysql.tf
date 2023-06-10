@@ -4,7 +4,7 @@ resource "aws_db_subnet_group" "db_subnet_group" {
   name        = "postgres-db-subnet-group"
   description = "postgres db subnet group"
   subnet_ids  = [aws_subnet.private-subnet-1a.id, aws_subnet.private-subnet-1b.id]
-#   subnet_ids = [aws_subnet.public-subnet-1a.id, aws_subnet.public-subnet-1b.id]
+  #   subnet_ids = [aws_subnet.public-subnet-1a.id, aws_subnet.public-subnet-1b.id]
 
   tags = {
     Name = "${var.environment}-db-subnet-group"
@@ -13,17 +13,17 @@ resource "aws_db_subnet_group" "db_subnet_group" {
 
 resource "aws_db_parameter_group" "db-parameter-group" {
   name        = "postgres-db-parameter-group"
-  family      = "postgres15"
+  family      = "mysql5.7"
   description = "postgres db parameter group"
 
   parameter {
-    name  = "shared_preload_libraries"
-    value = "pg_stat_statements"
+    name  = "character_set_server"
+    value = "utf8"
   }
 
   parameter {
-    name  = "pg_stat_statements.track"
-    value = "all"
+    name  = "character_set_client"
+    value = "utf8"
   }
 
   tags = {
@@ -56,8 +56,7 @@ resource "aws_db_instance" "rds-instance" {
   final_snapshot_identifier   = var.final_snapshot_identifier
   vpc_security_group_ids      = [aws_security_group.rds-sg.id, aws_security_group.ecs-sg.id]
   db_subnet_group_name        = aws_db_subnet_group.db_subnet_group.name
-  db_parameter_group_name     = aws_db_parameter_group.db-parameter-group.name
-  
+
 
   tags = {
     Name = "${var.rds_identifier}-db-instance"

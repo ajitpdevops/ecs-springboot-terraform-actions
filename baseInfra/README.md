@@ -27,3 +27,9 @@
 2. terraform plan -var-file="./env/production.tfvars" -out="production.tfplan"
 3. terraform apply -var-file="./env/production.tfvars"
 4. terraform destroy -var-file="./env/production.tfvars"W
+
+
+1. terraform init -backend-config="./env/baseinfra-stage.config"
+2. terraform plan -var-file="./env/stage.tfvars" -out="stage.tfplan"
+3. terraform apply -var-file="./env/production.tfvars"
+4. terraform destroy -var-file="./env/production.tfvars"W

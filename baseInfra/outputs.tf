@@ -92,10 +92,10 @@ output "ecr_repositories" {
   }
 }
 
-output "rds_username" {
-  value = nonsensitive(aws_db_instance.rds-instance.username)
-}
+# output "rds_username" {
+#   value = nonsensitive(aws_db_instance.rds-instance.username)
+# }
 
-output "rds_password" {
-  value = nonsensitive(aws_db_instance.rds-instance.password)
-}
+# output "rds_password" {
+#   value = nonsensitive(aws_db_instance.rds-instance.password)
+# }
