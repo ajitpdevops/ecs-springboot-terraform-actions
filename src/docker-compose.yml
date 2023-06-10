@@ -1,0 +1,40 @@
+version: "2.4"
+
+services:
+  couponapp:
+    build: .
+    ports:
+      - "8181:8181"
+    environment:
+      - SPRING_PROFILES_ACTIVE=stage
+      # - SPRING_DATASOURCE_URL=jdbc:postgresql://mysql:5432/coupondb
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/coupondb
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=admin123
+      - SPRING_PORT=8181
+    depends_on:
+      - mysql
+  
+  # postgres:
+  #   image: postgres:latest
+  #   ports:
+  #     - "5432:5432"
+  #   environment:
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_PASSWORD=postgres
+  #     - POSTGRES_DB=coupondb
+  #   volumes:
+  #     - ./data/postgres:/var/lib/postgresql
+
+  mysql:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=admin123
+      - MYSQL_DATABASE=coupondb
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+
