@@ -22,11 +22,38 @@
     - Target Group - Target group for 80
     - Listener for 443
 
-### Commands -
-1. terraform init -backend-config="./env/baseinfra-prod.config"
-2. terraform plan -var-file="./env/production.tfvars" -out="production.tfplan"
-3. terraform apply -var-file="./env/production.tfvars"
-4. terraform destroy -var-file="./env/production.tfvars"
+## Initialize terraform with default workspace 
+```
+    terraform init -backend-config="./env/baseinfra-stage.config"
+```
+## Managing terraform workspaces 
+1. Create a new workspace for each environment
+```
+    terraform workspace new production
+    terraform workspace new stage
+    terraform workspace list
+```
+
+2. To Work in Stage Workspace
+
+```
+    terraform workspace select stage
+    terraform init -backend-config="./env/baseinfra-stage.config"
+    terraform plan -var-file="./env/stage.tfvars"
+    terraform apply -var-file="./env/stage.tfvars"
+    terraform destroy -var-file="./env/stage.tfvars"
+```
+
+3. To Work in Production Workspace
+
+```
+    terraform workspace select stage
+    terraform init -backend-config="./env/baseinfra-prod.config"
+    terraform plan -var-file="./env/production.tfvars"
+    terraform apply -var-file="./env/production.tfvars"
+    terraform destroy -var-file="./env/production.tfvars"
+```
+
 
 ## Setting up Platform Infra Automation
 - LB Target group LB for each microservice
@@ -37,6 +64,8 @@
 - Autoscaling group for each microservice
     - Autoscaling policy for memory utilization
     - Autoscaling policy for CPU utilization
+
+
 
 ### Commands -
 1. terraform init -backend-config="./env/platform-prod.config"
@@ -60,7 +89,11 @@
 7. Make appropriate changes to the "*.yml" files located under "./.github/WORKFLOWS" folders
 
 
-# Common Consideration
-1. java 11
-2. terraform v 1.4.5 
-3. AWS CLI v2
+## Helpful commands 
+
+``` 
+    aws secretsmanager list-secrets --query "SecretList[?DeletedDate != null].[Name,DeletedDate]" --output table
+    aws secretsmanager delete-secret --secret-id psqladminprod --force-delete-without-recovery
+    aws rds delete-db-subnet-group --db-subnet-group-name postgres-db-subnet-group
+
+```

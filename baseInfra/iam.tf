@@ -1,5 +1,5 @@
 resource "aws_iam_role" "ecs-cluster-role" {
-  name = "ecs-IAM-role"
+  name = "${var.environment}-ecs-IAM-role"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -16,7 +16,7 @@ resource "aws_iam_role" "ecs-cluster-role" {
 }
 
 resource "aws_iam_policy" "ecs-cluster-policy" {
-  name        = "ecs-task-policy"
+  name        = "${var.environment}-ecs-task-policy"
   description = "Policy that allows access to required resources for ECS Cluster"
 
   policy = <<EOF
@@ -62,7 +62,7 @@ resource "aws_iam_role_policy_attachment" "ecs-cluster-policy-attachment" {
 }
 
 resource "aws_iam_role" "ecs_task_execution_role" {
-  name = "ecs-TaskExecutionRole"
+  name = "${var.environment}-ecs-TaskExecutionRole"
   assume_role_policy = <<EOF
     {
     "Version": "2012-10-17",
