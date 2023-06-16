@@ -60,7 +60,11 @@
 7. Make appropriate changes to the "*.yml" files located under "./.github/WORKFLOWS" folders
 
 
-# Common Consideration
-1. java 11
-2. terraform v 1.4.5 
-3. AWS CLI v2
+## Helpful commands 
+
+``` 
+    aws secretsmanager list-secrets --query "SecretList[?DeletedDate != null].[Name,DeletedDate]" --output table
+    aws secretsmanager delete-secret --secret-id psqladminprod --force-delete-without-recovery
+    aws rds delete-db-subnet-group --db-subnet-group-name postgres-db-subnet-group
+
+```

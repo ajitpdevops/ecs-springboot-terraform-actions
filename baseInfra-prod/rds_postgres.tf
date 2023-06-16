@@ -1,8 +1,8 @@
 
 # create db subnet group
 resource "aws_db_subnet_group" "db_subnet_group" {
-  name        = "postgres-db-subnet-group"
-  description = "postgres db subnet group"
+  name        = "${var.environment}-db-subnet-group"
+  description = "postgres db subnet group for ${var.environment}"
   subnet_ids  = [aws_subnet.private-subnet-1a.id, aws_subnet.private-subnet-1b.id]
 
   tags = {
@@ -10,32 +10,11 @@ resource "aws_db_subnet_group" "db_subnet_group" {
   }
 }
 
-resource "aws_db_parameter_group" "db-parameter-group" {
-  name        = "postgres-db-parameter-group"
-  family      = "postgres15"
-  description = "postgres db parameter group"
-
-  parameter {
-    name  = "shared_preload_libraries"
-    value = "pg_stat_statements"
-  }
-
-  parameter {
-    name  = "pg_stat_statements.track"
-    value = "all"
-  }
-
-  tags = {
-    Name = "${var.environment}-db-parameter-group"
-  }
-  
-}
-
 
 # Create a Postgres RDS cluster within my VPC and subnets
 
 resource "aws_db_instance" "rds-instance" {
-  identifier                  = var.rds_identifier
+  identifier                  = "${var.environment}-postgres"
   allocated_storage           = var.rds_allocated_storage
   storage_type                = var.rds_storage_type
   multi_az                    = var.rds_multi_az
@@ -43,8 +22,6 @@ resource "aws_db_instance" "rds-instance" {
   engine_version              = var.rds_engine_version
   instance_class              = var.rds_instance_class
   db_name                     = var.rds_database_name
-  # username                    = jsondecode(data.aws_secretsmanager_secret_version.creds.secret_string)["username"]
-  # password                    = jsondecode(data.aws_secretsmanager_secret_version.creds.secret_string)["password"]
   username                    = local.db_creds["username"]
   password                    = local.db_creds["password"]
   port                        = var.rds_port

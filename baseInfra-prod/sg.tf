@@ -1,7 +1,7 @@
 
 # Create a security group for ALB
 resource "aws_security_group" "alb-sg" {
-  name        = "ALB Security Group"
+  name        = "${var.environment}-ALB-SG"
   description = "Allow HTTP Traffic to ALB"
   vpc_id      = aws_vpc.main.id
 
@@ -31,7 +31,7 @@ resource "aws_security_group" "alb-sg" {
 # Create a security group for ECS to allow 8080 8081 & 3000 ports
 
 resource "aws_security_group" "ecs-sg" {
-  name        = "ECS Security Group"
+  name        = "${var.environment}-ECS-SG"
   description = "Allow Traffic to ECS Cluster"
   vpc_id      = aws_vpc.main.id
 
@@ -59,7 +59,7 @@ resource "aws_security_group" "ecs-sg" {
 # Create a security group for postgres
 
 resource "aws_security_group" "rds-sg" {
-  name        = "RDS Security Group"
+  name        = "${var.environment}-RDS-SG"
   description = "Allow Traffic to RDS"
   vpc_id      = aws_vpc.main.id
 
@@ -69,17 +69,6 @@ resource "aws_security_group" "rds-sg" {
     to_port         = var.rds_port
     protocol        = "tcp"
     security_groups = [aws_security_group.ecs-sg.id]
-  }
-
-  # Allow inbound access from Anywhere 
-  # REMOVE THIS BEFORE PRODUCTION
-  ingress {
-    description      = "Allow inbound traffic from anywhere"
-    from_port        = var.rds_port
-    to_port          = var.rds_port
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
-    ipv6_cidr_blocks = ["::/0"]
   }
 
   egress {
