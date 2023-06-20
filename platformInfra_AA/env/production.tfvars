@@ -6,7 +6,7 @@ remote_state_bucket="ecs-terraform-backend-state"
 environment = "prod"
 aws_region = "us-east-1"
 
-
+image_tag = "latest"
 
 # Manage Microservices
 service = {
