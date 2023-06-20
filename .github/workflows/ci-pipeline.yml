@@ -71,16 +71,19 @@ jobs:
         run: |
           echo ${{ env.image }}
           echo pwd
-          
-        
+
       - name: Terraform Init
-        working-directory: ./platformInfra
+        working-directory: ./platformInfra_AA
         run: terraform init -backend-config="./env/platform-stage.config"
+
+      - name: Terraform workspace
+        working-directory: ./platformInfra_AA
+        run: terraform workspace new stage || terraform workspace select stage
         
       - name: Terraform Apply
         env:
           IMAGE_TAG: ${{ github.ref }}
-        working-directory: ./platformInfra
+        working-directory: ./platformInfra_AA
         run: terraform apply -auto-approve -var 'microservices={"${{ env.SERVICE_NAME }}"={ "image_tag"="${{ env.IMAGE_TAG }}" }}' -var-file="./env/stage.tfvars"
 
         

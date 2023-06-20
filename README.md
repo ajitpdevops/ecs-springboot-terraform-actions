@@ -93,7 +93,24 @@
 
 ``` 
     aws secretsmanager list-secrets --query "SecretList[?DeletedDate != null].[Name,DeletedDate]" --output table
-    aws secretsmanager delete-secret --secret-id psqladminprod --force-delete-without-recovery
-    aws rds delete-db-subnet-group --db-subnet-group-name postgres-db-subnet-group
+    aws secretsmanager delete-secret --secret-id psqladmin-stage --force-delete-without-recovery
+    aws rds delete-db-subnet-group --db-subnet-group-name stage-db-subnet-group
+    aws rds delete-db-subnet-group --db-subnet-group-name prod-db-subnet-group
 
+    # delete RDS Db Instance using AWS Cli
+    aws rds delete-db-instance --db-instance-identifier stage-postgres --skip-final-snapshot
+
+    # Delete ELVBv2 using AWS Cli
+    aws elbv2 delete-load-balancer --load-balancer-arn arn:aws:elasticloadbalancing:us-east-1:123456789012:loadbalancer/app/stage-alb/1234567890123456
+
+    # Delete ELBv2 Target Group using AWS Cli
+    aws elbv2 delete-target-group --target-group-arn arn:aws:elasticloadbalancing:us-east-1:123456789012:targetgroup/stage-alb-target-group/1234567890123456
+
+    # Delete IAM ROle 
+    aws iam delete-role --role-name stage-ecs-IAM-role
+
+    # detach policy from role
+    aws iam detach-role-policy --role-name stage-ecs-IAM-role --policy-arn arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy
+
+    
 ```

@@ -29,13 +29,17 @@ jobs:
           
       # Specify the desired Terraform version
       - name: Terraform Init
-        working-directory: ./platformInfra
+        working-directory: ./platformInfra_AA
         run: terraform init -backend-config="./env/platform-prod.config"
+
+      - name: Terraform Workspace
+        working-directory: ./platformInfra_AA
+        run: terraform workspace new prod || terraform workspace select prod
         
       - name: Terraform Plan
-        working-directory: ./platformInfra
+        working-directory: ./platformInfra_AA
         run: terraform plan -var-file="./env/production.tfvars" -out=tfplan
 
       - name: Terraform Apply
-        working-directory: ./platformInfra
+        working-directory: ./platformInfra_AA
         run: terraform apply -auto-approve tfplan --var-file="./env/production.tfvars"
