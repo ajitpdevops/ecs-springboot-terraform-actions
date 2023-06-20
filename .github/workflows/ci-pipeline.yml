@@ -84,6 +84,6 @@ jobs:
         env:
           IMAGE_TAG: ${{ github.ref }}
         working-directory: ./platformInfra_AA
-        run: terraform apply -auto-approve -var 'microservices={"${{ env.SERVICE_NAME }}"={ "image_tag"="${{ env.IMAGE_TAG }}" }}' -var-file="./env/stage.tfvars"
+        run: terraform apply -auto-approve -var 'image_tag=${{ env.IMAGE_TAG }}' -var-file="./env/stage.tfvars"
 
         
