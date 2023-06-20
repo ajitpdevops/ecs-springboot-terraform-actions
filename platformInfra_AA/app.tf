@@ -9,7 +9,7 @@ resource "aws_ecs_task_definition" "task_definition" {
   container_definitions = jsonencode([
     {
       "name" : "${var.service.name}",
-      "image" : format("%s:%s", data.terraform_remote_state.baseinfra.outputs.ecr_repositories[var.service.name], var.service.image_tag),
+      "image" : format("%s:%s", data.terraform_remote_state.baseinfra.outputs.ecr_repositories[var.service.name], var.image_tag),
       "essential" : true,
       "environment" : [
         {
