@@ -50,7 +50,7 @@ jobs:
     needs: build-and-push
     defaults:
       run:
-        working-directory: platformInfra
+        working-directory: platformInfra_AA
     steps:
       - name: Checkout code
         uses: actions/checkout@v3

@@ -9,7 +9,7 @@ resource "aws_ecs_task_definition" "task_definition" {
   container_definitions = jsonencode([
     {
       "name" : "${var.service.name}",
-      "image" : format("%s:%s", data.aws_ecr_repository.service, var.image_tag),
+      "image" : format("%s:%s", data.aws_ecr_repository.service.url, var.image_tag),
       "essential" : true,
       "environment" : [
         {
