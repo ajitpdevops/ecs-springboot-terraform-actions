@@ -1,6 +1,6 @@
 # Remote State
 remote_state_key="env:/production/STAGE/baseinfra.tfstate"
-remote_state_bucket="ecs-terraform-optionup-state"
+remote_state_bucket="ecs-terraform-backend-state"
 
 # Environment & Region
 environment = "prod"
