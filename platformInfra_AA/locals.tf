@@ -6,6 +6,6 @@ locals {
   db_creds = jsondecode(data.aws_secretsmanager_secret_version.creds.secret_string)
 
   # Get the ecr repository url from remote state 
-  ecr_repositories = data.terraform_remote_state.baseinfra.outputs.ecr_repositories
+  # ecr_repositories = data.terraform_remote_state.baseinfra.outputs.ecr_repositories
 }
 
