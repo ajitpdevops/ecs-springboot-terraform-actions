@@ -1,0 +1,19 @@
+name: Fetch Tag Number
+
+on:
+  release:
+    types: [created]
+  workflow_dispatch:
+
+jobs:
+  fetch-tag:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Print Tag Number
+        run: |
+          echo "Tag Number: ${{ github.ref }}"
+          echo "Tag Name: ${{ github.event.release.tag_name }}"

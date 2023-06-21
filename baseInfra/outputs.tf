@@ -36,7 +36,7 @@ output "rds_endpoint" {
 }
 
 output "ecs_alb_listener_arn" {
-  value = aws_lb_listener.ecs-alb-https-listener.arn
+  value = aws_lb_listener.ecs-alb-http-listener.arn
 }
 
 output "alb-dns-name" {
